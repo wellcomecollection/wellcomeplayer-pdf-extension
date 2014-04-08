@@ -1,0 +1,5 @@
+.svn
+*.js
+*.js.map
+!js/*.js
+css/*.css
