@@ -2,7 +2,7 @@
 /// <reference path="../../js/extensions.d.ts" />
 
 import baseExtension = require("../../modules/coreplayer-shared-module/baseExtension");
-import coreExtension = require("../coreplayer-mediaelement-extension/extension");
+import coreExtension = require("../coreplayer-pdf-extension/extension");
 import utils = require("../../utils");
 import baseProvider = require("../../modules/coreplayer-shared-module/baseProvider");
 import provider = require("./provider");
@@ -14,17 +14,17 @@ import footer = require("../../modules/wellcomeplayer-extendedfooterpanel-module
 import login = require("../../modules/wellcomeplayer-dialogues-module/loginDialogue");
 import conditions = require("../../modules/wellcomeplayer-dialogues-module/conditionsDialogue");
 import download = require("../../modules/wellcomeplayer-dialogues-module/downloadDialogue");
-import center = require("../../modules/coreplayer-mediaelementcenterpanel-module/mediaelementCenterPanel");
-import embed = require("../../extensions/coreplayer-mediaelement-extension/embedDialogue");
+import center = require("../../modules/coreplayer-pdfcenterpanel-module/pdfCenterPanel");
+import embed = require("../../extensions/coreplayer-pdf-extension/embedDialogue");
 import help = require("../../modules/coreplayer-dialogues-module/helpDialogue");
 import IWellcomeExtension = require("../../modules/wellcomeplayer-shared-module/iWellcomeExtension");
 import sharedBehaviours = require("../../modules/wellcomeplayer-shared-module/behaviours");
 import IProvider = require("../../modules/coreplayer-shared-module/iProvider");
 import IWellcomeProvider = require("../../modules/wellcomeplayer-shared-module/iWellcomeProvider");
-import IWellcomeMediaElementProvider = require("./iWellcomeMediaElementProvider");
-import IWellcomeMediaElementExtension = require("./iWellcomeMediaElementExtension");
+import IWellcomePDFProvider = require("./iWellcomePDFProvider");
+import IWellcomePDFExtension = require("./iWellcomePDFExtension");
 
-export class Extension extends coreExtension.Extension implements IWellcomeMediaElementExtension{
+export class Extension extends coreExtension.Extension implements IWellcomePDFExtension{
 
     $conditionsDialogue: JQuery;
     conditionsDialogue: conditions.ConditionsDialogue;
@@ -80,7 +80,7 @@ export class Extension extends coreExtension.Extension implements IWellcomeMedia
             this.leftPanel = new left.TreeViewLeftPanel(shell.Shell.$leftPanel);
         }
 
-        this.centerPanel = new center.MediaElementCenterPanel(shell.Shell.$centerPanel);
+        this.centerPanel = new center.PDFCenterPanel(shell.Shell.$centerPanel);
         this.rightPanel = new right.MoreInfoRightPanel(shell.Shell.$rightPanel);
         this.footerPanel = new footer.FooterPanel(shell.Shell.$footerPanel);
 
@@ -147,10 +147,10 @@ export class Extension extends coreExtension.Extension implements IWellcomeMedia
             });
         } else {
             var path = (<IWellcomeProvider>this.provider).getSaveUri();
-            var thumbnail =  (<IWellcomeMediaElementProvider>this.provider).getThumbUri();
+            var thumbnail =  (<IWellcomePDFProvider>this.provider).getThumbUri();
             var title = this.provider.getTitle();
 
-            var info = (<IWellcomeMediaElementProvider>this.provider).getSaveInfo(path, thumbnail, title);
+            var info = (<IWellcomePDFProvider>this.provider).getSaveInfo(path, thumbnail, title);
             this.triggerSocket(Extension.SAVE, info);
         }
     }

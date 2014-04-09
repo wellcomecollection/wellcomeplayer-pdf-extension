@@ -2,9 +2,9 @@
 /// <reference path="../../js/extensions.d.ts" />
 import coreProvider = require("../coreplayer-mediaelement-extension/provider");
 import utils = require("../../utils");
-import IWellcomeMediaElementProvider = require("./iWellcomeMediaElementProvider");
+import IWellcomePDFProvider = require("./iWellcomePDFProvider");
 
-export class Provider extends coreProvider.Provider implements IWellcomeMediaElementProvider {
+export class Provider extends coreProvider.Provider implements IWellcomePDFProvider {
 
     constructor(config: any, pkg: any) {
         super(config, pkg);
@@ -35,7 +35,8 @@ export class Provider extends coreProvider.Provider implements IWellcomeMediaEle
         return String.prototype.format(this.config.options.prefetchUriTemplate, baseUri, asset.identifier, fileExtension);
     }
 
-    getAssetUri(asset: any): string {
+    getPDFUri(): string{
+        var asset = this.assetSequence.assets[0];
         var baseUri = this.config.options.assetsBaseUri || this.config.options.dataBaseUri || "";
         return String.prototype.format(this.config.options.assetsUriTemplate, baseUri, asset.fileUri);
     }
