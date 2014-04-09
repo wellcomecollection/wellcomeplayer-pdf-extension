@@ -5,4 +5,4 @@ interface IWellcomePDFExtension extends IPDFExtension{
 
 }
 
-export = IPDFExtension;
+export = IWellcomePDFExtension;
