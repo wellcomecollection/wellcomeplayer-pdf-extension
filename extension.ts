@@ -107,25 +107,25 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
 
     viewMedia(){
 
-        var assetIndex = 0;
+        var canvasIndex = 0;
 
         // authorise.
-        this.viewIndex(assetIndex, () => {
+        this.viewIndex(canvasIndex, () => {
 
-            var asset = this.provider.assetSequence.assets[assetIndex];
+            var asset = this.provider.sequence.assets[canvasIndex];
 
             // if the asset doesn't have multiple sources, do a prefetch
             if (!asset.sources){
                 // successfully authorised. prefetch asset.
-                this.prefetchAsset(assetIndex, () => {
+                this.prefetchAsset(canvasIndex, () => {
                     // successfully prefetched.
                     $.publish(Extension.OPEN_MEDIA, [asset]);
-                    this.setParam(baseProvider.params.assetIndex, assetIndex);
+                    this.setParam(baseProvider.params.canvasIndex, canvasIndex);
                     this.updateSlidingExpiration();
                 });
             } else {
                 $.publish(Extension.OPEN_MEDIA, [asset]);
-                this.setParam(baseProvider.params.assetIndex, assetIndex);
+                this.setParam(baseProvider.params.canvasIndex, canvasIndex);
                 this.updateSlidingExpiration();
             }
 
@@ -169,35 +169,35 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
             // reset hash to empty.
             parent.document.location.hash = '';
 
-            // assetSequenceIndex
+            // sequenceIndex
             if (params[0]){
-                this.setParam(baseProvider.params.assetSequenceIndex, this.provider.assetSequenceIndex);
+                this.setParam(baseProvider.params.sequenceIndex, this.provider.sequenceIndex);
             }
 
-            // assetIndex
+            // canvasIndex
             if (params[1]){
-                this.setParam(baseProvider.params.assetIndex, params[1]);
+                this.setParam(baseProvider.params.canvasIndex, params[1]);
             }
 
         } else {
-            // set assetSequenceIndex hash param.
-            this.setParam(baseProvider.params.assetSequenceIndex, this.provider.assetSequenceIndex);
+            // set sequenceIndex hash param.
+            this.setParam(baseProvider.params.sequenceIndex, this.provider.sequenceIndex);
         }
     }
 
     // everything from here down is common to wellcomplayer extensions.
 
-    viewIndex(assetIndex: number, successCallback?: any): void {
-        this.behaviours.viewIndex(assetIndex, successCallback);
+    viewIndex(canvasIndex: number, successCallback?: any): void {
+        this.behaviours.viewIndex(canvasIndex, successCallback);
     }
 
     // ensures that a file is in the server cache.
-    prefetchAsset(assetIndex: number, successCallback: any): void{
-        this.behaviours.prefetchAsset(assetIndex, successCallback);
+    prefetchAsset(canvasIndex: number, successCallback: any): void{
+        this.behaviours.prefetchAsset(canvasIndex, successCallback);
     }
 
-    authorise(assetIndex: number, successCallback: any, failureCallback: any): void {
-        this.behaviours.authorise(assetIndex, successCallback, failureCallback);
+    authorise(canvasIndex: number, successCallback: any, failureCallback: any): void {
+        this.behaviours.authorise(canvasIndex, successCallback, failureCallback);
     }
 
     login(params: any): void {
@@ -225,16 +225,16 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
         return this.behaviours.hasPermissionToViewCurrentItem();
     }
 
-    isAuthorised(assetIndex): boolean {
-        return this.behaviours.isAuthorised(assetIndex);
+    isAuthorised(canvasIndex): boolean {
+        return this.behaviours.isAuthorised(canvasIndex);
     }
 
     showRestrictedFileDialogue(params): void {
         this.behaviours.showRestrictedFileDialogue(params);
     }
 
-    getInadequatePermissionsMessage(assetIndex): string {
-        return this.behaviours.getInadequatePermissionsMessage(assetIndex);
+    getInadequatePermissionsMessage(canvasIndex): string {
+        return this.behaviours.getInadequatePermissionsMessage(canvasIndex);
     }
 
     allowCloseLogin(): boolean {

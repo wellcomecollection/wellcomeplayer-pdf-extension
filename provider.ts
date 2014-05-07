@@ -6,8 +6,8 @@ import IWellcomePDFProvider = require("./iWellcomePDFProvider");
 
 export class Provider extends coreProvider.Provider implements IWellcomePDFProvider {
 
-    constructor(config: any, pkg: any) {
-        super(config, pkg);
+    constructor(config: any, manifest: any) {
+        super(config, manifest);
 
         $.extend(true, this.config.options, {
             moreInfoUriTemplate: '{0}{1}',
@@ -22,7 +22,7 @@ export class Provider extends coreProvider.Provider implements IWellcomePDFProvi
 
     getMoreInfoUri(): string{
         var baseUri = this.options.dataBaseUri || "";
-        var uri = baseUri + this.pkg.bibliographicInformation;
+        var uri = baseUri + this.manifest.bibliographicInformation;
 
         if (this.options.timestampUris) uri = this.addTimestamp(uri);
 
@@ -36,7 +36,7 @@ export class Provider extends coreProvider.Provider implements IWellcomePDFProvi
     }
 
     getPDFUri(): string{
-        var asset = this.assetSequence.assets[0];
+        var asset = this.sequence.assets[0];
         var baseUri = this.config.options.assetsBaseUri || this.config.options.dataBaseUri || "";
         return String.prototype.format(this.config.options.assetsUriTemplate, baseUri, asset.fileUri);
     }
@@ -49,7 +49,7 @@ export class Provider extends coreProvider.Provider implements IWellcomePDFProvi
     }
 
     getThumbUri(): string{
-        return this.assetSequence.extensions.posterImage;
+        return this.sequence.extensions.posterImage;
     }
 
     getSaveUri(): string {
