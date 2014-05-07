@@ -119,11 +119,13 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
                 // successfully authorised. prefetch asset.
                 this.prefetchAsset(canvasIndex, () => {
                     // successfully prefetched.
+                    this.provider.setMediaUri(canvas);
                     $.publish(Extension.OPEN_MEDIA, [asset]);
                     this.setParam(baseProvider.params.canvasIndex, canvasIndex);
                     this.updateSlidingExpiration();
                 });
             } else {
+                this.provider.setMediaUri(canvas);
                 $.publish(Extension.OPEN_MEDIA, [asset]);
                 this.setParam(baseProvider.params.canvasIndex, canvasIndex);
                 this.updateSlidingExpiration();
