@@ -142,10 +142,25 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
                     this.save();
                 },
                 failureCallback: (message: string) => {
-                    this.showDialogue(message);
+                    this.showDialogue(message, () => {
+                        this.save();
+                    });
                 },
                 allowClose: true,
                 message: this.provider.config.modules.genericDialogue.content.loginToSave
+            });
+        } else if (this.isGuest()){
+            this.showLoginDialogue({
+                successCallback: () => {
+                    this.save();
+                },
+                failureCallback: (message: string) => {
+                    this.showDialogue(message, () => {
+                        this.save();
+                    });
+                },
+                allowClose: true,
+                allowSocialLogin: true
             });
         } else {
             var path = (<IWellcomeProvider>this.provider).getSaveUri();
@@ -221,6 +236,10 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
 
     isLoggedIn(): boolean {
         return this.behaviours.isLoggedIn();
+    }
+
+    isGuest(): boolean {
+        return this.behaviours.isGuest();
     }
 
     hasPermissionToViewCurrentItem(): boolean{

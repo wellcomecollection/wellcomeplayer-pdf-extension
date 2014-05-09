@@ -1,10 +1,12 @@
 /// <reference path="../../js/jquery.d.ts" />
 /// <reference path="../../js/extensions.d.ts" />
-import coreProvider = require("../coreplayer-mediaelement-extension/provider");
+import coreProvider = require("../coreplayer-pdf-extension/provider");
 import utils = require("../../utils");
 import IWellcomePDFProvider = require("./iWellcomePDFProvider");
 
 export class Provider extends coreProvider.Provider implements IWellcomePDFProvider {
+
+    moreInfo: any;
 
     constructor(config: any, manifest: any) {
         super(config, manifest);
@@ -33,12 +35,6 @@ export class Provider extends coreProvider.Provider implements IWellcomePDFProvi
         var baseUri = this.config.options.prefetchBaseUri || this.config.options.dataBaseUri || "";
         var fileExtension = asset.fileUri.substr(asset.fileUri.indexOf('.') + 1);
         return String.prototype.format(this.config.options.prefetchUriTemplate, baseUri, asset.identifier, fileExtension);
-    }
-
-    getPDFUri(): string{
-        var asset = this.sequence.assets[0];
-        var baseUri = this.config.options.assetsBaseUri || this.config.options.dataBaseUri || "";
-        return String.prototype.format(this.config.options.assetsUriTemplate, baseUri, asset.fileUri);
     }
 
     getLoginUri(username: string, password: string): string {
