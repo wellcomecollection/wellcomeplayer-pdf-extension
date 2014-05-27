@@ -3,7 +3,7 @@ import IPDFProvider = require("../coreplayer-pdf-extension/iPDFProvider");
 
 interface IWellcomePDFProvider extends IWellcomeProvider, IPDFProvider{
     getSaveInfo(path: string, thumbnail: string, title: string): any;
-    getThumbUri(): string;
+    getThumbUri(canvas: any): string;
 }
 
 export = IWellcomePDFProvider;

@@ -44,8 +44,8 @@ export class Provider extends coreProvider.Provider implements IWellcomePDFProvi
         return uri;
     }
 
-    getThumbUri(): string{
-        return this.sequence.extensions.posterImage;
+    getThumbUri(canvas: any): string{
+        return canvas.thumbnailPath;
     }
 
     getSaveUri(): string {

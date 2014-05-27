@@ -164,7 +164,7 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
             });
         } else {
             var path = (<IWellcomeProvider>this.provider).getSaveUri();
-            var thumbnail =  (<IWellcomePDFProvider>this.provider).getThumbUri();
+            var thumbnail =  (<IWellcomePDFProvider>this.provider).getThumbUri(this.provider.getCanvasByIndex(0));
             var title = this.provider.getTitle();
 
             var info = (<IWellcomePDFProvider>this.provider).getSaveInfo(path, thumbnail, title);
