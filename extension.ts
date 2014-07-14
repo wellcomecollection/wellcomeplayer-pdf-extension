@@ -202,7 +202,7 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
         }
     }
 
-    // everything from here down is common to wellcomplayer extensions.
+    // everything from here down is common to wellcomeplayer extensions.
 
     viewIndex(canvasIndex: number, successCallback?: any): void {
         this.behaviours.viewIndex(canvasIndex, successCallback);
