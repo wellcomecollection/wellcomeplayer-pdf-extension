@@ -274,6 +274,10 @@ export class Extension extends coreExtension.Extension implements IWellcomePDFEx
         this.behaviours.trackVariable(slot, name, value, scope);
     }
 
+    isEmbedEnabled(): boolean {
+        return this.behaviours.isEmbedEnabled();
+    }
+
     isSaveToLightboxEnabled(): boolean {
         return this.behaviours.isSaveToLightboxEnabled();
     }
